@@ -18,17 +18,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.2.2
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0d # v4.0.3
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-
-      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
@@ -40,4 +39,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@de19d76df4e9aeb5ff7b807d58004e216b7fa085 # v4.0.4
+        uses: actions/deploy-pages@v4
