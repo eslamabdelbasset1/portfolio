@@ -27,11 +27,8 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
-      - name: Install pnpm
-        run: npm install -g pnpm@8 && echo "::add-path::$(npm bin -g)"
-
-      - name: Verify pnpm installation
-        run: pnpm --version
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -42,7 +39,7 @@ jobs:
           NODE_ENV: production
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
