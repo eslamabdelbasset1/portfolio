@@ -19,15 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
 
       - name: Install pnpm
-        run: npm install -g pnpm@8
+        run: npm install -g pnpm@8 && echo "::add-path::$(npm bin -g)"
+
+      - name: Verify pnpm installation
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -38,7 +42,7 @@ jobs:
           NODE_ENV: production
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4  # Updated to v3
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./dist
 
@@ -51,4 +55,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4  # Updated to v4
+        uses: actions/deploy-pages@v2
